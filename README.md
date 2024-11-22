@@ -53,7 +53,8 @@ customer_id IS NULL OR gender IS NULL OR  AGE IS NULL OR CATEGORY IS NULL OR
  ```sql
 select * from reatil_sales where sale_date='2022-11-05'
 ```
-2 **Write a SQL query to retrieve all transactions where the category is 'Clothing' and the quantity sold 
+2 **Write a SQL query to retrieve all transactions where the category is 'Clothing' 
+and the quantity sold 
 is more than 4 in the month of Nov-2022**
 ```sql
 select * from reatil_sales where category ='Clothing'  and  DATE_FORMAT(sale_date,'%Y-%m')='2022-11' and quantiy >= 4
@@ -77,16 +78,16 @@ select gender,category,count(transactions_id) from reatil_sales group by gender,
 7 **Write a SQL query to calculate the average sale for each month. Find out best selling month in each year**
 ```sql
 with cte as(
-select year(sale_date) AS YEARs,month(sale_date) as months,round(avg(total_sale),2) AS AVGs ,
-rank() over(partition by  year(sale_date) 
+select year(sale_date) AS YEARs,month(sale_date) as months,round(avg(total_sale),2) AS AVGs
+,rank() over(partition by  year(sale_date) 
 order by round(avg(total_sale),2) desc) as rank_avg
 from reatil_sales group by 1,2 )
 select * from cte where rank_avg =1
 ```
 8 **Write a SQL query to find the top 5 customers based on the highest total sales**
 ```sql
-select customer_id,sum(total_sale) as higest from reatil_sales group by customer_id order
-by sum(total_sale) desc limit 5
+select customer_id,sum(total_sale) as higest from reatil_sales group by customer_id
+order by sum(total_sale) desc limit 5
 ```
 9 **Write a SQL query to find the number of unique customers who purchased items from each category.**
 ```sql
